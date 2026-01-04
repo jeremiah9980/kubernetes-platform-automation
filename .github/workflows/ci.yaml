@@ -1,0 +1,5 @@
+name: kubernetes-ci
+on: [push]
+jobs:
+  validate:
+    runs-on: ubuntu-latest
