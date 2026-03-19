@@ -1,0 +1,15 @@
+{
+  "id": "example-001",
+  "source": "manual",
+  "category": "project",
+  "title": "Example task",
+  "details": "Longer description",
+  "status": "new",
+  "priority": "medium",
+  "due_date": "2026-03-18",
+  "next_action": "Define the first concrete step",
+  "owner": "Jeremiah",
+  "tags": ["example"],
+  "linked_item": "",
+  "notes": ""
+}

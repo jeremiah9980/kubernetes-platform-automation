@@ -1,0 +1,21 @@
+Here are my current Jira tickets:
+
+[PASTE JSON OR SUMMARY]
+
+For each ticket:
+- Summarize the task clearly
+- Identify current status
+- Define next action (very specific)
+- Estimate effort (S/M/L)
+- Flag blockers
+
+Then:
+1. Prioritize all tickets
+2. Group into:
+   - Quick wins
+   - Deep work
+   - Blocked
+3. Suggest:
+   - Any tickets that should be split
+   - Any new tickets that should be created
+4. Give me a clean execution plan for today

@@ -1,0 +1,10 @@
+Design a complete system for:
+
+[PROBLEM]
+
+Include:
+- Architecture
+- Tools
+- Automation opportunities
+- Step-by-step implementation
+- Future scaling

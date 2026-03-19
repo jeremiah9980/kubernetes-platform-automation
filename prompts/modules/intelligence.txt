@@ -1,0 +1,10 @@
+Analyze this data:
+
+[DATA]
+
+Extract:
+- Action items
+- Deadlines
+- Risks
+- Anything involving kids, legal, or money
+- Suggested responses

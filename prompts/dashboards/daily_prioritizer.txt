@@ -1,0 +1,12 @@
+Here is my unified master task list for today.
+
+[INPUT]
+
+Organize it into:
+- Top 5 priorities
+- Quick wins under 15 minutes
+- Deep work items
+- Blocked / waiting items
+- What should be deferred
+
+Then give me a realistic execution order for the day.

@@ -1,0 +1,9 @@
+Add this to my master timeline:
+
+[DATA]
+
+Then:
+- Sort chronologically
+- Highlight key events
+- Identify inconsistencies or patterns
+- Flag anything important for documentation

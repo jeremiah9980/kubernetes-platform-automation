@@ -1,0 +1,9 @@
+Review my week based on this input:
+
+[INPUT]
+
+Tell me:
+- Where I lost time
+- What created the most value
+- What I should double down on
+- What I should eliminate

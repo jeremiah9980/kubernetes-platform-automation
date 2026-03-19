@@ -1,0 +1,3 @@
+id,source,category,title,details,status,priority,due_date,next_action,owner,tags,linked_item,notes
+GMAIL-001,gmail,family,Respond to Austin ISD email,Review email thread and reply with requested confirmation,new,high,2026-03-18,Draft and send response,Jeremiah,"school;email",,
+GMAIL-002,gmail,legal,Review counsel email,Read attached message and capture any deadlines,new,critical,2026-03-18,Summarize legal action items,Jeremiah,"legal;email",,

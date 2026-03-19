@@ -1,0 +1,8 @@
+Completed:
+- [what was completed]
+
+Next:
+- [next step]
+
+Blockers:
+- [if any]

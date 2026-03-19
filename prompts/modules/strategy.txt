@@ -1,0 +1,9 @@
+Here is the situation:
+
+[CONTEXT]
+
+Give me:
+- What is really happening (pattern analysis)
+- Risks
+- Best move strategically
+- What most people would miss here

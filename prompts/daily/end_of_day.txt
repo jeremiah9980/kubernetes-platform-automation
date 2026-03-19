@@ -1,0 +1,9 @@
+Here is what I completed today and what is still open:
+
+[INPUT]
+
+Create:
+- Carryover list for tomorrow
+- Jira updates needed
+- Emails or messages to send
+- Tasks that should be split or deferred

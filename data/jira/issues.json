@@ -1,0 +1,437 @@
+{
+  "issues": [
+    {
+      "key": "TM-2143",
+      "fields": {
+        "summary": "Validate Keyfactor renewal handling for edge-case certs",
+        "status": {
+          "name": "In Progress"
+        },
+        "priority": {
+          "name": "High"
+        },
+        "duedate": "2026-03-19",
+        "description": "Review current renewal workflow and document any failures.",
+        "labels": [
+          "certificates",
+          "automation"
+        ]
+      }
+    },
+    {
+      "key": "TM-2190",
+      "fields": {
+        "summary": "Refine Terraform module for Windows server provisioning",
+        "status": {
+          "name": "To Do"
+        },
+        "priority": {
+          "name": "Medium"
+        },
+        "duedate": "2026-03-22",
+        "description": "Align module variables and output structure with platform standards.",
+        "labels": [
+          "terraform",
+          "windows"
+        ]
+      }
+    },
+    {
+      "key": "CS-10846",
+      "fields": {
+        "summary": "Integrate Okta with Google for SSO + user/group provisioning",
+        "status": {
+          "name": "In Progress"
+        },
+        "priority": {
+          "name": "Highest"
+        },
+        "description": "Summary\nIntegrate Okta with Google for Single Sign-On (SSO) and user/group provisioning.\n\nContext\nThe integration aims to enable users to authenticate through Okta and manage user/group provisioning in Google Cloud Identity.\n\nAcceptance criteria\n- Implement SSO using SAML for user authentication with Okta.\n- Enable provisioning using SCIM for creating, updating, and suspending users/groups in Cloud Identity.\n- In Okta Admin:\n  - Add the Google integration (Google Workspace or Google Cloud Platform).\n  - Configure SAML with:\n    - NameID set to user email.\n    - Group mapping if group-based entitlements are required.\n\nOther information\nGoogle provides a step-by-step Okta + Cloud Identity guide. Okta\u2019s SAML setup flow is documented here.\n\nYou want two things:\n- SSO (SAML) so users authenticate with Okta\n- Provisioning (SCIM) so Okta creates/updates/suspends users/groups in Cloud Identity\n\n3.1 Okta \u2192 Google: create the integration\nIn Okta Admin:\n- Add the Google integration (commonly \u201cGoogle Workspace\u201d / \u201cGoogle Cloud Platform\u201d depending on your Okta catalog and what you want to launch)\n- Configure SAML:\n  - NameID: user email (typical)\n  - Map groups if you plan group-based entitlements\n- Okta\u2019s SAML setup flow is documented here.",
+        "labels": [
+          "jira-import",
+          "okta",
+          "google",
+          "sso",
+          "scim",
+          "provisioning"
+        ]
+      }
+    },
+    {
+      "key": "CS-10122",
+      "fields": {
+        "summary": "Pentest High - Password age on krbtgt (built-in account)",
+        "status": {
+          "name": "In Progress"
+        },
+        "priority": {
+          "name": "High"
+        },
+        "description": "Domain Built-in Account \u2018krbtgt\u2019 Has a Password Older Than 6 Months\n\nDescription\nThe krbtgt account is a critical built-in account in Active Directory (AD), responsible for encrypting and signing all Kerberos Ticket-Granting Tickets (TGTs) issued within the domain. Compromising this account\u2019s credentials allows an attacker to forge TGTs, known as \u201cGolden Tickets,\u201d that can impersonate any user, including Domain Administrators, with unrestricted access across the domain.\n\nIndustry best practices (e.g., NIST, CIS Benchmarks, and Microsoft AD Security Guidance) recommend rotating the krbtgt password at least every six months. However, in Texas Mutual\u2019s environment, the krbtgt password was last changed on May 17, 2015, at 10:37:37 UTC, indicating a significant deviation from these standards.\n\nBecause Active Directory stores two previous passwords for the krbtgt account to prevent authentication failures during replication, the password must be changed twice. This ensures all domain controllers receive the new keys and invalidates any previously issued forged tickets. The inability to rotate both keys leaves a residual risk of ticket reuse or persistence by a past adversary.\n\nExploitability of the Vulnerability\nWhile an outdated krbtgt password alone does not constitute an immediate compromise, it greatly amplifies the impact of any prior or future domain controller breaches. Exploitation requires an attacker to already possess the NTLM hash of the krbtgt account, which can be obtained via a DCSync or NTDS exfiltration attack. Because this condition does not independently grant access and requires prior compromise of domain replication privileges, the exploitability is rated Medium.\n\nPossible Consequences\n- Full impersonation of any domain user or administrator\n- Long-term persistence even after regular password changes\n- Lateral movement and data exfiltration without triggering authentication anomalies\n\nRemediation Proposal\nPreparation and Testing\n- Validate Active Directory replication health across all domain controllers.\n- Back up the AD database and system state before making any changes.\n- Conduct a dry run in a test domain to confirm process integrity.\n\nPassword Rotation Procedure\n- Execute a double password change for the krbtgt account, ensuring replication completes between changes.\n- Use Microsoft\u2019s recommended PowerShell scripts (e.g., Reset-KrbtgtKey.ps1) to automate rotation and replication validation. Note: the Microsoft script is deprecated and may require manual review before use.\n- Alternatively, perform the changes manually, allowing 3\u20135 days between each change to ensure full replication and ticket expiration.\n\nPost-Rotation Verification\n- Confirm successful replication and Kerberos functionality across all domain controllers.\n- Review event logs for replication or ticketing errors.\n- Invalidate all outstanding Kerberos tickets to ensure previous credentials cannot be reused.\n\nOngoing Governance\n- Implement a semiannual password rotation policy for the krbtgt account.\n- Include verification of the krbtgt key age in regular Active Directory security audits.",
+        "labels": [
+          "jira-import",
+          "security",
+          "active-directory",
+          "kerberos",
+          "pentest"
+        ]
+      }
+    },
+    {
+      "key": "CS-5763",
+      "fields": {
+        "summary": "Help to Configure OKTA Group for SmartComm Cloud Access in ClaimCenter",
+        "status": {
+          "name": "In Progress"
+        },
+        "priority": {
+          "name": "Low"
+        },
+        "description": "As a system administrator, I want to set up and configure OKTA groups for managing access to the SmartComm Cloud within ClaimCenter, so that we can securely and efficiently control user access to SmartComm features based on their roles and responsibilities, ensuring proper authorization and streamlined user management.\n\nThe group is for Interactive users and should have both \u201c02-Templates User\u201d and \u201c13-Operations User\u201d role in SmartComm Cloud.\n\nAttachment referenced: ClaimCenter_Users_20251118.xlsx\n\nUsers will need access to Prod and NonProd.",
+        "labels": [
+          "jira-import",
+          "okta",
+          "smartcomm",
+          "claimcenter",
+          "access-management"
+        ]
+      }
+    },
+    {
+      "key": "CS-9160",
+      "fields": {
+        "summary": "AppSoc Vulnerabilities - Remediate TLS 1.0 and 1.1",
+        "status": {
+          "name": "In Progress"
+        },
+        "priority": {
+          "name": "Low"
+        },
+        "description": "Description:\nThe remote service encrypts traffic using an older version of TLS.\n\nThe remote service accepts connections encrypted using TLS 1.0. TLS 1.0 has a number of cryptographic design flaws. Modern implementations of TLS 1.0 mitigate these problems, but newer versions of TLS like 1.2 and 1.3 are designed against these flaws and should be used whenever possible.\n\nAs of March 31, 2020, endpoints that aren\u2019t enabled for TLS 1.2 and higher will no longer function properly with major web browsers and major vendors.\n\nPCI DSS v3.2 requires that TLS 1.0 be disabled entirely by June 30, 2018, except for POS POI terminals (and the SSL/TLS termination points to which they connect) that can be verified as not being susceptible to any known exploits.\n\nFix Info:\n- Enable support for TLS 1.2 and 1.3\n- Disable support for TLS 1.0\n\nAdditional notes:\nIssues appear to all be related to UCS KVMs.",
+        "labels": [
+          "jira-import",
+          "security",
+          "tls",
+          "appsoc",
+          "ucs"
+        ]
+      }
+    },
+    {
+      "key": "CS-10937",
+      "fields": {
+        "summary": "CS-5763 Create OKTA Groups for SmartComm Cloud Access (Prod and NonProd)",
+        "status": {
+          "name": "In Progress"
+        },
+        "priority": {
+          "name": "Low"
+        },
+        "description": "Set up two OKTA groups: one for production (SG-Okta_SmartComm-Prod-Interactive) and one for non-production (SG-Okta_SmartComm-NonProd-Interactive) environments to manage SmartComm Cloud access for Interactive users.",
+        "labels": [
+          "jira-import",
+          "okta",
+          "smartcomm",
+          "subtask"
+        ]
+      }
+    },
+    {
+      "key": "CS-10936",
+      "fields": {
+        "summary": "CS-5763 Configure SmartComm Cloud Roles for OKTA Groups",
+        "status": {
+          "name": "In Progress"
+        },
+        "priority": {
+          "name": "Low"
+        },
+        "description": "Assign both '02-Templates User' and '13-Operations User' roles to the OKTA groups within SmartComm Cloud to ensure users have the correct permissions.",
+        "labels": [
+          "jira-import",
+          "okta",
+          "smartcomm",
+          "roles",
+          "subtask"
+        ]
+      }
+    },
+    {
+      "key": "CS-10939",
+      "fields": {
+        "summary": "CS-5763 Document OKTA Group Configuration and Access Levels",
+        "status": {
+          "name": "In Progress"
+        },
+        "priority": {
+          "name": "Low"
+        },
+        "description": "Document the configuration steps, access levels, and permissions associated with each OKTA group, including roles and responsibilities for audit and future reference.",
+        "labels": [
+          "jira-import",
+          "okta",
+          "documentation",
+          "audit",
+          "subtask"
+        ]
+      }
+    },
+    {
+      "key": "CS-9394",
+      "fields": {
+        "summary": "Coordinate and Remove Legacy Microsoft Office 2010 Software from Identified Production Virtual Servers",
+        "status": {
+          "name": "Backlog"
+        },
+        "priority": {
+          "name": "Highest"
+        },
+        "description": "To reduce security risk and maintain compliance, the following legacy Microsoft Office 2010 products must be removed from production virtual servers AUS-VMPROD12 and AUS-VMQA16 after receiving confirmation from device owners:\n\n- Access 2010\n- Excel 2010\n- InfoPath 2010\n- Office Professional Plus 2010\n- OneNote 2010\n- Outlook 2010\n- PowerPoint 2010\n- Publisher 2010\n- SharePoint Workspace 2010\n- Word 2010\n\nScope:\n- Devices: AUS-VMPROD12, AUS-VMQA16 (both in Production environment)\n- Publisher: Microsoft\n- Device type: VIRTUAL-SERVER\n\nTasks:\n- Reach out to responsible device owners for AUS-VMPROD12 and AUS-VMQA16.\n- Secure documented approval/commitment for Office 2010 removal from each device owner.\n- Schedule and coordinate uninstallation of all listed Microsoft Office 2010 products following confirmation.\n- Validate removal post-uninstallation and communicate completion to stakeholders.\n- Document the process and update asset records as required.\n\nNotes:\nCoordinate with Teams to ensure minimal disruption to production systems. If any business dependencies on Office 2010 are identified, work with developers to determine whether a newer version of Office is necessary or whether unnecessary components can simply be removed.",
+        "labels": [
+          "jira-import",
+          "microsoft-office",
+          "server",
+          "security",
+          "remediation"
+        ]
+      }
+    },
+    {
+      "key": "CS-10847",
+      "fields": {
+        "summary": "3.2 Google Admin Console: enable SSO with Okta as IdP",
+        "status": {
+          "name": "Backlog"
+        },
+        "priority": {
+          "name": "Highest"
+        },
+        "description": "Summary\nEnable Single Sign-On (SSO) in Google Admin Console using Okta as the Identity Provider (IdP).\n\nContext\nThis task involves configuring SSO settings in the Google Admin Console to integrate with Okta.\n\nAcceptance criteria\n- Access the SSO configuration section in Google Admin.\n- Set the option for Third-party SSO.\n- Upload Okta\u2019s IdP certificate.\n- Configure the following URLs:\n  - Sign-in page URL\n  - Sign-out URL\n  - Change password URL (if applicable)\n- Conduct testing with a pilot group.",
+        "labels": [
+          "jira-import",
+          "okta",
+          "google-admin",
+          "sso"
+        ]
+      }
+    },
+    {
+      "key": "CS-10119",
+      "fields": {
+        "summary": "Pentest High - Data exposure via SMB",
+        "status": {
+          "name": "Backlog"
+        },
+        "priority": {
+          "name": "High"
+        },
+        "description": "Sensitive Information Exposure through Multiple SMB Shares\n\nDescription\nDuring the assessment, it was discovered that several SMB shares were accessible without adequate restrictions, and these shares contained highly sensitive information. Among the exposed data were backup files, application source code, and plaintext credentials, all of which represent significant security risks if accessed by unauthorized users.\n\nThe lack of proper segmentation and access control on these shares means that users with minimal or no privileges could browse, read, and potentially copy critical data. In some cases, write permissions may also allow modification or deletion of files, further compounding the risk.\n\nThe presence of source code in these shares exposes the internal logic of applications, making it easier for attackers to identify additional vulnerabilities or insert malicious modifications. Backup files often contain complete datasets, providing attackers with opportunities for data theft or reconstruction of entire systems. Exposed credentials pose an even more direct threat, as they may grant unauthorized access to databases, services, or administrative accounts.\n\nExploitability of the Vulnerability\nThe vulnerability is highly exploitable. Attackers or even unintentional users with basic network access can discover and enumerate SMB shares using widely available tools (e.g., smbclient, CrackMapExec, PowerView). No specialized skills or elevated privileges are required to access exposed files. If write permissions are available, an attacker could plant malicious payloads, replace legitimate executables, or modify configuration files to facilitate persistent compromise or ransomware deployment.\n\nPossible Consequences\n- Disclosure of personal or business-critical data\n- Static analysis of source code to discover hidden vulnerabilities\n- Direct access to internal services using plaintext credentials\n- Malicious file placement, configuration overwrite, or deletion leading to disruption and data loss\n\nRemediation Proposal\n- Enforce least-privilege access to all file shares.\n- Grant access only to authorized users with a clear business justification.\n- Remove broad groups such as Everyone and Authenticated Users from share and NTFS permissions.\n- Relocate backups, source code, and credentials to secure, access-controlled repositories.\n- Implement network segmentation to isolate sensitive resources from general user access.\n- Enable auditing and logging for all file access attempts.\n- Monitor SMB shares through a SIEM or DLP solution for anomalous activity.\n- Apply SMB signing and SMB 3.x encryption to protect data in transit.\n- Disable write or modify access wherever not operationally required.\n- Implement file integrity monitoring to detect unauthorized changes.\n- Conduct periodic audits of SMB shares and integrate data classification and governance policies.",
+        "labels": [
+          "jira-import",
+          "security",
+          "smb",
+          "data-exposure",
+          "pentest"
+        ]
+      }
+    },
+    {
+      "key": "CS-10489",
+      "fields": {
+        "summary": "Research/Apply permissions needed for ManageEngine ADManager Plus",
+        "status": {
+          "name": "Backlog"
+        },
+        "priority": {
+          "name": "Medium"
+        },
+        "description": "ADManager Plus is a tool currently being used by Security (Joe Risacher) for T Drive management/reporting. Security has granted access to this tool to myself and Jeremiah Cargill in order to research and implement permissions needed to use this tool with Active Directory in the same capacity as Adaxes. Evaluating for possible replacement of Adaxes.\n\nPermissions Setup Guide from ManageEngine:\nhttps://download.manageengine.com/products/ad-manager/permissions-required-for-the-ad-account-configured-in-admanager-plus.pdf",
+        "labels": [
+          "jira-import",
+          "manageengine",
+          "admanager-plus",
+          "active-directory",
+          "permissions"
+        ]
+      }
+    },
+    {
+      "key": "CS-2346",
+      "fields": {
+        "summary": "Create New Certificates for Cohesity Clusters",
+        "status": {
+          "name": "Backlog"
+        },
+        "priority": {
+          "name": "Low"
+        },
+        "description": "C1 and C2 Cohesity need new certificates applied to them.",
+        "labels": [
+          "jira-import",
+          "certificates",
+          "cohesity"
+        ]
+      }
+    },
+    {
+      "key": "CS-9154",
+      "fields": {
+        "summary": "Automate Certificate Lifecycle for AWS ELB/ALB with ACM",
+        "status": {
+          "name": "Backlog"
+        },
+        "priority": {
+          "name": "Low"
+        },
+        "description": "As a DevOps Engineer, I want AWS ACM to automatically handle provisioning, renewal, and rotation of ELB/ALB certificates, so manual updates are eliminated.",
+        "labels": [
+          "jira-import",
+          "aws",
+          "acm",
+          "certificates",
+          "elb",
+          "alb"
+        ]
+      }
+    },
+    {
+      "key": "CS-9302",
+      "fields": {
+        "summary": "Create New Subdomain for Testing DNS Delegation (On-prem to Route 53)",
+        "status": {
+          "name": "Backlog"
+        },
+        "priority": {
+          "name": "Low"
+        },
+        "description": "Description:\nCreate a new subdomain under the primary domain to facilitate testing of DNS delegation from on-premises DNS infrastructure to AWS Route 53.\n\nRequirements:\n- Create a subdomain, e.g., test.txmcould.net\n- Configure necessary DNS records on-premises to delegate the subdomain to Route 53 (e.g., NS records pointing to Route 53 nameservers)\n- Set up the corresponding hosted zone in Route 53 for the new subdomain\n- Add basic DNS records (A, CNAME, etc.) in Route 53 for testing resolution\n- Verify successful DNS resolution for the subdomain from external networks",
+        "labels": [
+          "jira-import",
+          "dns",
+          "route53",
+          "aws",
+          "delegation"
+        ]
+      }
+    },
+    {
+      "key": "CS-9879",
+      "fields": {
+        "summary": "CS-9152 Update Application Code to Integrate with Azure Key Vault APIs",
+        "status": {
+          "name": "Backlog"
+        },
+        "priority": {
+          "name": "Low"
+        },
+        "description": "Modify the application codebase to enable secure storage and retrieval of certificates from Azure Key Vault using Azure SDKs or REST APIs. Implement authentication and authorization mechanisms as required.",
+        "labels": [
+          "jira-import",
+          "azure",
+          "key-vault",
+          "certificates",
+          "subtask"
+        ]
+      }
+    },
+    {
+      "key": "CS-9880",
+      "fields": {
+        "summary": "CS-9152 Update Application and Operations Documentation with Integration Details",
+        "status": {
+          "name": "Backlog"
+        },
+        "priority": {
+          "name": "Low"
+        },
+        "description": "Document the integration process, configuration settings, and operational procedures for managing certificates in Azure Key Vault. Ensure that documentation is clear for both developers and operations teams.",
+        "labels": [
+          "jira-import",
+          "azure",
+          "key-vault",
+          "documentation",
+          "subtask"
+        ]
+      }
+    },
+    {
+      "key": "CS-9881",
+      "fields": {
+        "summary": "CS-9152 Identify Application Certificate Requirements and Access Patterns",
+        "status": {
+          "name": "Backlog"
+        },
+        "priority": {
+          "name": "Low"
+        },
+        "description": "Document the specific certificate storage and retrieval needs for the application, including types of certificates, access patterns, and any compliance requirements. Determine which certificates need to be managed in Azure Key Vault and how the application will interact with the vault.",
+        "labels": [
+          "jira-import",
+          "azure",
+          "key-vault",
+          "requirements",
+          "subtask"
+        ]
+      }
+    },
+    {
+      "key": "CS-10845",
+      "fields": {
+        "summary": "Integrate Okta with Google for SSO + user/group provisioning",
+        "status": {
+          "name": "Backlog"
+        },
+        "priority": {
+          "name": "Low"
+        },
+        "description": "3) Integrate Okta with Google for SSO + user/group provisioning\n\nYou want two things:\n- SSO (SAML) so users authenticate with Okta\n- Provisioning (SCIM) so Okta creates/updates/suspends users/groups in Cloud Identity\n\nGoogle provides a step-by-step Okta + Cloud Identity guide.\n\n3.1 Okta \u2192 Google: create the integration\nIn Okta Admin:\n- Add the Google integration (commonly \u201cGoogle Workspace\u201d / \u201cGoogle Cloud Platform\u201d depending on your Okta catalog and what you want to launch)\n- Configure SAML:\n  - NameID: user email (typical)\n  - Map groups if you plan group-based entitlements\n- Okta\u2019s SAML setup flow is documented here.",
+        "labels": [
+          "jira-import",
+          "okta",
+          "google",
+          "sso",
+          "scim",
+          "backlog"
+        ]
+      }
+    },
+    {
+      "key": "CS-9152",
+      "fields": {
+        "summary": "Integrate Applications with Azure Key Vault for Certificate Storage",
+        "status": {
+          "name": "Planning"
+        },
+        "priority": {
+          "name": "Low"
+        },
+        "description": "As an application owner, I want my app integrated with Azure Key Vault for certificate storage, so certificates are securely managed and retrievable.",
+        "labels": [
+          "jira-import",
+          "azure",
+          "key-vault",
+          "certificates"
+        ]
+      }
+    },
+    {
+      "key": "CS-10058",
+      "fields": {
+        "summary": "CLONE - Okta - Create Role Groups for Safety Services",
+        "status": {
+          "name": "Planning"
+        },
+        "priority": {
+          "name": "Low"
+        },
+        "description": "User story\nWhen creating role groups, I want to auto-populate the groups using rules so that I can streamline the management of user roles.\n\nContext\nThis issue involves the creation of role groups specifically for safety services. The goal is to implement rules that will allow these groups to be auto-populated. Testing will be conducted in the tmic-labs environment before rolling out to production in Okta.",
+        "labels": [
+          "jira-import",
+          "okta",
+          "role-groups",
+          "safety-services"
+        ]
+      }
+    }
+  ]
+}

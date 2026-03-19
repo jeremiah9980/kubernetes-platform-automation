@@ -1,0 +1,11 @@
+Here are my personal and admin items.
+
+[INPUT]
+
+Sort into:
+- Urgent today
+- This week
+- Waiting
+- Low priority
+
+Then give me the shortest path to clear the highest-risk items.
